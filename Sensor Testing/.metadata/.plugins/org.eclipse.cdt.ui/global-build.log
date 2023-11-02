@@ -1,0 +1,158 @@
+23:43:25 **** Incremental Build of configuration Debug for project IMU_Gyro ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:229:19: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  229 |                   sprintf(angvelX, "Angular Velocity in X is %f deg/s\r\n", gyroXVal);
+      |                   ^~~~~~~
+../Core/Src/main.c:25:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   24 | #include "main.h"
+  +++ |+#include <stdio.h>
+   25 | 
+../Core/Src/main.c:229:19: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+  229 |                   sprintf(angvelX, "Angular Velocity in X is %f deg/s\r\n", gyroXVal);
+      |                   ^~~~~~~
+../Core/Src/main.c:229:19: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/main.c:237:55: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
+  237 |                   HAL_UART_Transmit(&huart2, angvelX, strlen(angvelX), 1000u);
+      |                                                       ^~~~~~
+../Core/Src/main.c:25:1: note: include '<string.h>' or provide a declaration of 'strlen'
+   24 | #include "main.h"
+  +++ |+#include <string.h>
+   25 | 
+../Core/Src/main.c:237:55: warning: incompatible implicit declaration of built-in function 'strlen' [-Wbuiltin-declaration-mismatch]
+  237 |                   HAL_UART_Transmit(&huart2, angvelX, strlen(angvelX), 1000u);
+      |                                                       ^~~~~~
+../Core/Src/main.c:237:55: note: include '<string.h>' or provide a declaration of 'strlen'
+../Core/Src/main.c:237:46: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  237 |                   HAL_UART_Transmit(&huart2, angvelX, strlen(angvelX), 1000u);
+      |                                              ^~~~~~~
+      |                                              |
+      |                                              char *
+In file included from ../Core/Inc/stm32f3xx_hal_conf.h:327,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:24:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h:1486:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1486 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:238:46: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  238 |                   HAL_UART_Transmit(&huart2, angvelY, strlen(angvelY), 1000u);
+      |                                              ^~~~~~~
+      |                                              |
+      |                                              char *
+In file included from ../Core/Inc/stm32f3xx_hal_conf.h:327,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:24:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h:1486:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1486 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:239:46: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  239 |                   HAL_UART_Transmit(&huart2, angvelZ, strlen(angvelZ), 1000u);
+      |                                              ^~~~~~~
+      |                                              |
+      |                                              char *
+In file included from ../Core/Inc/stm32f3xx_hal_conf.h:327,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:24:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h:1486:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1486 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:240:46: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  240 |                   HAL_UART_Transmit(&huart2, accelerationX, strlen(accelerationX), 1000u);
+      |                                              ^~~~~~~~~~~~~
+      |                                              |
+      |                                              char *
+In file included from ../Core/Inc/stm32f3xx_hal_conf.h:327,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:24:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h:1486:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1486 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:241:46: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  241 |                   HAL_UART_Transmit(&huart2, accelerationY, strlen(accelerationY), 1000u);
+      |                                              ^~~~~~~~~~~~~
+      |                                              |
+      |                                              char *
+In file included from ../Core/Inc/stm32f3xx_hal_conf.h:327,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:24:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h:1486:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1486 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:242:46: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
+  242 |                   HAL_UART_Transmit(&huart2, accelerationZ, strlen(accelerationZ), 1000u);
+      |                                              ^~~~~~~~~~~~~
+      |                                              |
+      |                                              char *
+In file included from ../Core/Inc/stm32f3xx_hal_conf.h:327,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:24:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h:1486:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'char *'
+ 1486 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:245:59: warning: passing argument 1 of 'strlen' makes pointer from integer without a cast [-Wint-conversion]
+  245 |                   HAL_UART_Transmit(&huart2, '\n', strlen('\n'), 1000u);
+      |                                                           ^~~~
+      |                                                           |
+      |                                                           int
+../Core/Src/main.c:245:59: note: expected 'const char *' but argument is of type 'int'
+../Core/Src/main.c:245:46: warning: passing argument 2 of 'HAL_UART_Transmit' makes pointer from integer without a cast [-Wint-conversion]
+  245 |                   HAL_UART_Transmit(&huart2, '\n', strlen('\n'), 1000u);
+      |                                              ^~~~
+      |                                              |
+      |                                              int
+In file included from ../Core/Inc/stm32f3xx_hal_conf.h:327,
+                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:24:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart.h:1486:79: note: expected 'const uint8_t *' {aka 'const unsigned char *'} but argument is of type 'int'
+ 1486 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                                ~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:162:16: warning: unused variable 'temperatureMPU' [-Wunused-variable]
+  162 |           char temperatureMPU[64]; /* String where to store the serial port output */
+      |                ^~~~~~~~~~~~~~
+../Core/Src/main.c:149:20: warning: unused variable 'tempMPU' [-Wunused-variable]
+  149 |           uint16_t tempMPU; /* Full 16 bit data from the temperature sensor on the MPU-6050 */
+      |                    ^~~~~~~
+../Core/Src/main.c:142:19: warning: unused variable 'dataReg_Temp_MPU' [-Wunused-variable]
+  142 |           uint8_t dataReg_Temp_MPU[2]; /* Buffer for reading the temperature from the MPU */
+      |                   ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:124:19: warning: unused variable 'regAddress_WHO_AM_I' [-Wunused-variable]
+  124 |           uint8_t regAddress_WHO_AM_I = 0x75; /* Verify the Identity of the Device */
+      |                   ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:117:19: warning: unused variable 'regAddress_TEMP_OUTL' [-Wunused-variable]
+  117 |           uint8_t regAddress_TEMP_OUTL = 0x42; /* Temperature Data Low Byte */
+      |                   ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:19: warning: unused variable 'regAddress_TEMP_OUTH' [-Wunused-variable]
+  116 |           uint8_t regAddress_TEMP_OUTH = 0x41; /* Temperature Data High Byte */
+      |                   ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:113:19: warning: unused variable 'regAddress_ACCEL_YOUTL' [-Wunused-variable]
+  113 |           uint8_t regAddress_ACCEL_YOUTL = 0x3E; /* Y Acceleration Data Low Byte */
+      |                   ^~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:112:19: warning: unused variable 'regAddress_ACCEL_YOUTH' [-Wunused-variable]
+  112 |           uint8_t regAddress_ACCEL_YOUTH = 0x3D; /* Y Acceleration Data High Byte */
+      |                   ^~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "IMU_Gyro.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Will\Documents\GitHub\STM32-Avionics\Sensor Testing\IMU_Gyro\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="IMU_Gyro.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: IMU_Gyro.elf
+ 
+arm-none-eabi-size   IMU_Gyro.elf 
+arm-none-eabi-objdump -h -S  IMU_Gyro.elf  > "IMU_Gyro.list"
+   text	   data	    bss	    dec	    hex	filename
+  32408	    476	   2124	  35008	   88c0	IMU_Gyro.elf
+Finished building: default.size.stdout
+ 
+Finished building: IMU_Gyro.list
+ 
+23:43:28 **** Incremental Build of configuration Debug for project IMU_Gyro ****
+make -j16 all 
+arm-none-eabi-size   IMU_Gyro.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32408	    476	   2124	  35008	   88c0	IMU_Gyro.elf
+Finished building: default.size.stdout
+ 
