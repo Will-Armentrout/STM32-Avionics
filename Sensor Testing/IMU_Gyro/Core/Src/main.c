@@ -122,15 +122,17 @@ int main(void)
       	  uint8_t regAddress_GYRO_ZOUTH = 0x47; /* Z Gyro Data High Byte */
       	  uint8_t regAddress_GYRO_ZOUTL = 0x48; /* Z Gyro Data Low Byte */
       	  uint8_t regAddress_WHO_AM_I = 0x75; /* Verify the Identity of the Device */
+      	  uint8_t regAddress_SMPLRT_DIV = 0x19; /* Set Data Rate */
 
       	  /* Mode Settings */
-      	  uint8_t regPWR_MGMT_1_Val = 0xAD; /* Power 1 Configurations Device Reset = 1, Sleep = 0, Cycle = 1, Temp_Disable = 0, CLKSEL = 101 */
+      	  uint8_t regPWR_MGMT_1_Val = 0x00; /* Power 1 Configurations Device Reset = 0, Sleep = 0, Cycle = 0, Temp_Disable = 0, CLKSEL = 000 */
       	  uint8_t regPWR_MGMT_2_Val = 0xC0; /* Power 2 Configurations Cycle Frequency = 3, Standby = 000000 */
       	  uint8_t regCONFIG_Val = 0x00; /* System Configuration, Highest Frequency filtering on all registers */
-      	  uint8_t regGYRO_CONFIG_Val = 0x18; /* Setting the full range of the Gyro to +/- 2000 deg/s */
-      	  uint8_t regACCEL_CONFIG_Val = 0x08; /* Setting the full range of the Acceleration to +/- 4g */
-      	  float gyroScale = 2000 / 2^16; /* Scaling Factor for the Gyro */
-      	  float accelScale = 4 / 2^16; /* Scaling Factor for the Accelerometer */
+      	  uint8_t regGYRO_CONFIG_Val = 0x00; /* Setting the full range of the Gyro to +/- 250 deg/s */
+      	  uint8_t regACCEL_CONFIG_Val = 0x00; /* Setting the full range of the Acceleration to +/- 2g */
+      	  uint8_t regSMPLRT_DIV_Val = 0x07; /* Data rate of 1 kHz */
+      	  float gyroScale = 131.072; /* Scaling Factor for the Gyro */
+      	  float accelScale = 16384.0; /* Scaling Factor for the Accelerometer */
 
       	  /* Output Buffers */
       	  uint8_t dataReg_Accel_X[2]; /* Buffer for reading the X Acceleration register */
@@ -140,33 +142,32 @@ int main(void)
       	  uint8_t dataReg_Gyro_Y[2]; /* Buffer for reading the Y Gyro register */
       	  uint8_t dataReg_Gyro_Z[2]; /* Buffer for reading the Z Gyro register */
       	  uint8_t dataReg_Temp_MPU[2]; /* Buffer for reading the temperature from the MPU */
-      	  uint16_t accelX; /* Full 16 bit data from the X Acceleration register */
-      	  uint16_t accelY; /* Full 16 bit data from the Y Acceleration register */
-      	  uint16_t accelZ; /* Full 16 bit data from the Z Acceleration register */
-      	  uint16_t gyroX; /* Full 16 bit data from the X Gyro register */
-      	  uint16_t gyroY; /* Full 16 bit data from the Y Gyro register */
-      	  uint16_t gyroZ; /* Full 16 bit data from the Z Gyro register */
-      	  uint16_t tempMPU; /* Full 16 bit data from the temperature sensor on the MPU-6050 */
+      	  int16_t accelX; /* Full 16 bit data from the X Acceleration register */
+      	  int16_t accelY; /* Full 16 bit data from the Y Acceleration register */
+      	  int16_t accelZ; /* Full 16 bit data from the Z Acceleration register */
+      	  int16_t gyroX; /* Full 16 bit data from the X Gyro register */
+      	  int16_t gyroY; /* Full 16 bit data from the Y Gyro register */
+      	  int16_t gyroZ; /* Full 16 bit data from the Z Gyro register */
+      	  int16_t tempMPU; /* Full 16 bit data from the temperature sensor on the MPU-6050 */
       	  float gyroXVal; /* Decimal X Angular Velocity */
       	  float gyroYVal; /* Decimal Y Angular Velocity */
       	  float gyroZVal; /* Decimal Z Angular Velocity */
       	  float accelXVal; /* Decimal X Acceleration Velocity */
       	  float accelYVal; /* Decimal Y Acceleration Velocity */
       	  float accelZVal; /* Decimal Z Acceleration Velocity */
-      	  char accelerationX[64]; /* String where to store the serial port output */
-      	  char accelerationY[64]; /* String where to store the serial port output */
-      	  char accelerationZ[64]; /* String where to store the serial port output */
-      	  char angvelX[64]; /* String where to store the serial port output */
-      	  char angvelY[64]; /* String where to store the serial port output */
-      	  char angvelZ[64]; /* String where to store the serial port output */
+      	  float tempVal; /* Decimal Temperature Reading */
+      	  char acceleration[128]; /* String for Acceleration serial port output */
+      	  char velocity[128]; /* String for Velocity serial port output */
       	  char temperatureMPU[64]; /* String where to store the serial port output */
 
       	  /* Initializing MPU-6050 for Measurement */
       	  HAL_I2C_Mem_Write(&hi2c1, mpuAddress, regAddress_PWR_MGMT1, I2C_MEMADD_SIZE_8BIT, &regPWR_MGMT_1_Val, 1, 2000u); /* Writing the Device Reset and Cycle */
-      	  HAL_I2C_Mem_Write(&hi2c1, mpuAddress, regAddress_PWR_MGMT2, I2C_MEMADD_SIZE_8BIT, &regPWR_MGMT_2_Val, 1, 2000u); /* Writing the Cycle Frequency */
-      	  HAL_I2C_Mem_Write(&hi2c1, mpuAddress, regAddress_CONFIG, I2C_MEMADD_SIZE_8BIT, &regCONFIG_Val, 1, 2000u); /* Writing the System Configuration */
+      	  //HAL_I2C_Mem_Write(&hi2c1, mpuAddress, regAddress_PWR_MGMT2, I2C_MEMADD_SIZE_8BIT, &regPWR_MGMT_2_Val, 1, 2000u); /* Writing the Cycle Frequency */
+      	  HAL_I2C_Mem_Write(&hi2c1, mpuAddress, regAddress_SMPLRT_DIV, I2C_MEMADD_SIZE_8BIT, &regSMPLRT_DIV_Val, 1, 2000u); /* Writing the data rate */
+      	  //HAL_I2C_Mem_Write(&hi2c1, mpuAddress, regAddress_CONFIG, I2C_MEMADD_SIZE_8BIT, &regCONFIG_Val, 1, 2000u); /* Writing the System Configuration */
       	  HAL_I2C_Mem_Write(&hi2c1, mpuAddress, regAddress_GYRO_CONFIG, I2C_MEMADD_SIZE_8BIT, &regGYRO_CONFIG_Val, 1, 2000u); /* Writing the Gyro full range */
       	  HAL_I2C_Mem_Write(&hi2c1, mpuAddress, regAddress_ACCEL_CONFIG, I2C_MEMADD_SIZE_8BIT, &regACCEL_CONFIG_Val, 1, 2000u); /* Writing the Accelerometer full range */
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -218,34 +219,35 @@ int main(void)
 	  	  accelZ = (((int16_t)dataReg_Accel_Z[0] << 8) | dataReg_Accel_Z[1]);
 
 	  	  /* Convert to decimal and scale */
-	  	  gyroXVal = ((float)gyroX) * gyroScale;
-	  	  gyroYVal = ((float)gyroY) * gyroScale;
-	  	  gyroZVal = ((float)gyroZ) * gyroScale;
-	  	  accelXVal = ((float)accelX) * accelScale;
-	  	  accelYVal = ((float)accelY) * accelScale;
-	  	  accelZVal = ((float)accelZ) * accelScale;
+	  	  gyroXVal = ((float)gyroX) / gyroScale;
+	  	  gyroYVal = ((float)gyroY) / gyroScale;
+	  	  gyroZVal = ((float)gyroZ) / gyroScale;
+	  	  accelXVal = ((float)accelX) / accelScale;
+	  	  accelYVal = ((float)accelY) / accelScale;
+	  	  accelZVal = ((float)accelZ) / accelScale;
+
+	  	  /* Temperature Measurement */
+	  	  HAL_I2C_Mem_Read(&hi2c1, mpuAddress, regAddress_TEMP_OUTH, I2C_MEMADD_SIZE_8BIT, &dataReg_Temp_MPU[0], 1, 1000u);
+	  	  HAL_I2C_Mem_Read(&hi2c1, mpuAddress, regAddress_TEMP_OUTL, I2C_MEMADD_SIZE_8BIT, &dataReg_Temp_MPU[1], 1, 1000u);
+
+	  	  tempMPU = (((int16_t)dataReg_Temp_MPU[0] << 8) | dataReg_Temp_MPU[1]);
+	  	  tempVal = ((float)tempMPU)/340 + 36.35;
 
 	  	  /* Prepare a formatted string, with the temperature value */
-	  	  sprintf(angvelX, "Angular Velocity in X is %f deg/s\r\n", gyroXVal);
-	  	  sprintf(angvelY, "Angular Velocity in Y is %f deg/s\r\n", gyroYVal);
-	  	  sprintf(angvelZ, "Angular Velocity in Z is %f deg/s\r\n", gyroZVal);
-	  	  sprintf(accelerationX, "Acceleration in X is %f g\r\n", accelXVal);
-	  	  sprintf(accelerationY, "Acceleration in Y is %f g\r\n", accelYVal);
-	  	  sprintf(accelerationZ, "Acceleration in Z is %f g\r\n", accelZVal);
+	  	  sprintf(velocity, "Angular Velocity in X: %f deg/s, Y: %f deg/s, Z: %f deg/s\r\n", gyroXVal, gyroYVal, gyroZVal);
+	  	  sprintf(acceleration, "Acceleration in X: %f g, Y: %f g, Z: %f g\r\n", accelXVal, accelYVal, accelZVal);
+	  	  sprintf(temperatureMPU, "Temp: %f C\r\n", tempVal);
 
 	  	  /* Transmit the message over UART */
-	  	  HAL_UART_Transmit(&huart2, angvelX, strlen(angvelX), 1000u);
-	  	  HAL_UART_Transmit(&huart2, angvelY, strlen(angvelY), 1000u);
-	  	  HAL_UART_Transmit(&huart2, angvelZ, strlen(angvelZ), 1000u);
-	  	  HAL_UART_Transmit(&huart2, accelerationX, strlen(accelerationX), 1000u);
-	  	  HAL_UART_Transmit(&huart2, accelerationY, strlen(accelerationY), 1000u);
-	  	  HAL_UART_Transmit(&huart2, accelerationZ, strlen(accelerationZ), 1000u);
+	  	  HAL_UART_Transmit(&huart2, velocity, strlen(velocity), 1000u);
+	  	  HAL_UART_Transmit(&huart2, acceleration, strlen(acceleration), 1000u);
+	  	  HAL_UART_Transmit(&huart2, temperatureMPU, strlen(temperatureMPU), 1000u);
 
 	  	  /* Add a newline */
-	  	  HAL_UART_Transmit(&huart2, '\n', strlen('\n'), 1000u);
+//	  	  HAL_UART_Transmit(&huart2, '\n', strlen('\n'), 1000u);
 
 	  	  /* Wait half a second */
-	  	  HAL_Delay(500);
+	  	  HAL_Delay(2000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -314,7 +316,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x00201D2C;
+  hi2c1.Init.Timing = 0x0010020A;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -419,6 +421,21 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+//static float twos_Complement(uint16_t binaryInput)
+//{
+//	int lead = __builtin_clz(binaryInput);
+//	float out;
+//	if (lead == 0) {
+//		/* Number is Negative */
+//		binaryInput = ~binaryInput + 1;
+//		out = (float)binaryInput * -1;
+//	}
+//	else {
+//		out = (float)binaryInput;
+//	}
+//	return out;
+//}
+
 
 /* USER CODE END 4 */
 

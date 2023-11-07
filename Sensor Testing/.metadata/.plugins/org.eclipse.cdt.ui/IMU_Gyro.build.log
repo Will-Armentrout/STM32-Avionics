@@ -1,10 +1,10 @@
-23:43:28 **** Incremental Build of configuration Debug for project IMU_Gyro ****
+19:24:55 **** Incremental Build of configuration Debug for project IMU_Gyro ****
 make -j16 all 
 arm-none-eabi-size   IMU_Gyro.elf 
    text	   data	    bss	    dec	    hex	filename
-  32408	    476	   2124	  35008	   88c0	IMU_Gyro.elf
+  32504	    476	   2124	  35104	   8920	IMU_Gyro.elf
 Finished building: default.size.stdout
  
 
-23:43:28 Build Finished. 0 errors, 0 warnings. (took 127ms)
+19:24:55 Build Finished. 0 errors, 0 warnings. (took 131ms)
 
