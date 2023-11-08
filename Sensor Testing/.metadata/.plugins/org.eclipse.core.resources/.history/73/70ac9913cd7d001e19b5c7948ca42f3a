@@ -103,7 +103,7 @@ int main(void)
   	  uint8_t regAddress_PRESS_MSB = 0xF7; /* Pressure Most Significant Bits */
 
   	  /* Register Values */
-  	  uint8_t regCTRL_MEAS = 0x27; /* Oversampling x1 for Pressure and Temp, Normal Mode 00100111*/
+  	  uint8_t regCTRL_MEAS = 0x27; /* Oversampling x1 for Pressure and Temp, Normal Mode */
   	  uint8_t regCONFIG = 0x00; /* Not sure about this. 0.5ms rate, filter off, SPI off */
 
   	  /* Output Buffers */

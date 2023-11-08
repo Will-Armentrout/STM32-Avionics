@@ -103,7 +103,7 @@ int main(void)
   	  uint8_t regAddress_PRESS_MSB = 0xF7; /* Pressure Most Significant Bits */
 
   	  /* Register Values */
-  	  uint8_t regCTRL_MEAS = 0x27; /* Oversampling x1 for Pressure and Temp, Normal Mode 00100111*/
+  	  uint8_t regCTRL_MEAS = 0x27; /* Oversampling x1 for Pressure and Temp, Normal Mode */
   	  uint8_t regCONFIG = 0x00; /* Not sure about this. 0.5ms rate, filter off, SPI off */
 
   	  /* Output Buffers */
@@ -128,9 +128,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_PRESS_MSB, I2C_MEMADD_SIZE_8BIT, &data, 6, 2000u); /* Reading pressure and temperature */
-
-	  HAL_Delay(2000); /* Delay for 2 seconds */
+	  data = HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_PRESS_MSB, I2C_MEMADD_SIZE_8BIT, &data, 6, 2000u); /* Reading pressure and temperature */
 
     /* USER CODE BEGIN 3 */
   }
