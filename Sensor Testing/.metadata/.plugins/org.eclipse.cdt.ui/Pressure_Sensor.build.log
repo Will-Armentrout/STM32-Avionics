@@ -1,48 +1,10 @@
-19:24:50 **** Incremental Build of configuration Debug for project Pressure_Sensor ****
+13:53:38 **** Build of configuration Debug for project Pressure_Sensor ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xE -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:131:93: warning: passing argument 5 of 'HAL_I2C_Mem_Read' from incompatible pointer type [-Wincompatible-pointer-types]
-  131 |           HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_PRESS_MSB, I2C_MEMADD_SIZE_8BIT, &data, 6, 2000u); /* Reading pressure and temperature */
-      |                                                                                             ^~~~~
-      |                                                                                             |
-      |                                                                                             int8_t (*)[6] {aka signed char (*)[6]}
-In file included from ../Core/Inc/stm32f3xx_hal_conf.h:271,
-                 from ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:29,
-                 from ../Core/Inc/main.h:30,
-                 from ../Core/Src/main.c:20:
-../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_i2c.h:637:66: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int8_t (*)[6]' {aka 'signed char (*)[6]'}
-  637 |                                    uint16_t MemAddSize, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                         ~~~~~~~~~^~~~~
-../Core/Src/main.c:117:16: warning: unused variable 'temperature' [-Wunused-variable]
-  117 |           char temperature[64]; /* String Temperature Output */
-      |                ^~~~~~~~~~~
-../Core/Src/main.c:116:16: warning: unused variable 'pressure' [-Wunused-variable]
-  116 |           char pressure[64]; /* String Pressure Output */
-      |                ^~~~~~~~
-../Core/Src/main.c:115:17: warning: unused variable 'tempVal' [-Wunused-variable]
-  115 |           float tempVal; /* Decimal Temperature */
-      |                 ^~~~~~~
-../Core/Src/main.c:114:17: warning: unused variable 'pressVal' [-Wunused-variable]
-  114 |           float pressVal; /* Decimal Pressure */
-      |                 ^~~~~~~~
-../Core/Src/main.c:113:19: warning: unused variable 'temp' [-Wunused-variable]
-  113 |           int16_t temp; /* Temperature Value */
-      |                   ^~~~
-../Core/Src/main.c:112:19: warning: unused variable 'press' [-Wunused-variable]
-  112 |           int16_t press; /* Pressure value */
-      |                   ^~~~~
-arm-none-eabi-gcc -o "Pressure_Sensor.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Will\Documents\GitHub\STM32-Avionics\Sensor Testing\Pressure_Sensor\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Pressure_Sensor.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Pressure_Sensor.elf
- 
 arm-none-eabi-size   Pressure_Sensor.elf 
-arm-none-eabi-objdump -h -S  Pressure_Sensor.elf  > "Pressure_Sensor.list"
    text	   data	    bss	    dec	    hex	filename
   15364	     20	   1788	  17172	   4314	Pressure_Sensor.elf
 Finished building: default.size.stdout
  
-Finished building: Pressure_Sensor.list
- 
 
-19:24:50 Build Finished. 0 errors, 7 warnings. (took 430ms)
+13:53:38 Build Finished. 0 errors, 0 warnings. (took 362ms)
 
