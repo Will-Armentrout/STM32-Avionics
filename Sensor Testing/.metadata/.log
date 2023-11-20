@@ -750,3 +750,36 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-11-14 17:47:38.889
 !MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2023-11-19 21:16:37.263 -----------------------------------------------
+eclipse.buildId=Version 1.13.2
+java.version=17.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-11-19 21:16:48.494
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-11-19 21:16:48.498
+!MESSAGE Log4j2 initialized with config file C:\Users\Will\Documents\GitHub\STM32-Avionics\Sensor Testing\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-11-19 21:16:52.509
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2023-11-20 18:06:18.901 -----------------------------------------------
+eclipse.buildId=Version 1.13.2
+java.version=17.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2023-11-20 18:06:28.562
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-11-20 18:06:34.548
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-11-20 18:06:34.553
+!MESSAGE Log4j2 initialized with config file C:\Users\Will\Documents\GitHub\STM32-Avionics\Sensor Testing\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-11-20 18:06:50.661
+!MESSAGE Started RMI Server, listening on port 41337
