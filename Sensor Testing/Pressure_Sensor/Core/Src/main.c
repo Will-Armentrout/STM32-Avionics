@@ -101,16 +101,51 @@ int main(void)
   	  uint8_t regAddress_CTRL_MEAS = 0xF4; /* Oversampling control */
   	  uint8_t regAddress_CONFIG = 0xF5; /* Data rate/filter and interface */
   	  uint8_t regAddress_PRESS_MSB = 0xF7; /* Pressure Most Significant Bits */
+  	  uint8_t regAddress_PRESS_LSB = 0xF8; /* Pressure Least Significant Bits */
+  	  uint8_t regAddress_PRESS_XLSB = 0xF9; /* Pressure Extreme Least Significant Bits */
+  	  uint8_t regAddress_TEMP_MSB = 0xFA; /* Temperature Most Significant Bits */
+  	  uint8_t regAddress_TEMP_LSB = 0xFB; /* Temperature Least Significant Bits */
+  	  uint8_t regAddress_TEMP_XLSB = 0xFC; /* Temperature Extreme Least Significant Bits */
+
+  	  /* Trimming Register Addresses */
+  	  uint8_t regAddress_Dig_T1 = 0x88;
+  	  uint8_t regAddress_Dig_T2 = 0x8A;
+  	  uint8_t regAddress_Dig_T3 = 0x8C;
+	  uint8_t regAddress_Dig_P1 = 0x8E;
+	  uint8_t regAddress_Dig_P2 = 0x90;
+	  uint8_t regAddress_Dig_P3 = 0x92;
+	  uint8_t regAddress_Dig_P4 = 0x94;
+	  uint8_t regAddress_Dig_P5 = 0x96;
+	  uint8_t regAddress_Dig_P6 = 0x98;
+	  uint8_t regAddress_Dig_P7 = 0x9A;
+	  uint8_t regAddress_Dig_P8 = 0x9C;
+	  uint8_t regAddress_Dig_P9 = 0x9E;
+
 
   	  /* Register Values */
   	  uint8_t regCTRL_MEAS = 0x27; /* Oversampling x1 for Pressure and Temp, Normal Mode 00100111*/
   	  uint8_t regCONFIG = 0x00; /* Not sure about this. 0.5ms rate, filter off, SPI off */
 
+
   	  /* Output Buffers */
   	  int8_t data[6]; /* Buffer for all the data */
 
-  	  int16_t press; /* Pressure value */
-  	  int16_t temp; /* Temperature Value */
+  	  int32_t press; /* Pressure value */
+  	  int32_t temp; /* Temperature Value */
+  	  uint16_t dig_T1; /* Trimming Value T1 */
+  	  short dig_T2; /* Trimming Value T2 */
+  	  short dig_T3; /* Trimming Value T3 */
+  	  uint16_t dig_P1; /*Trimming Value P1 */
+  	  short dig_P2; /* Trimming Value P2 */
+  	  short dig_P3; /* Trimming Value P3 */
+  	  short dig_P4; /* Trimming Value P4 */
+  	  short dig_P5; /* Trimming Value P5 */
+  	  short dig_P6; /* Trimming Value P6 */
+  	  short dig_P7; /* Trimming Value P7 */
+  	  short dig_P8; /* Trimming Value P8 */
+  	  short dig_P9; /* Trimming Value P9 */
+
+
   	  float pressVal; /* Decimal Pressure */
   	  float tempVal; /* Decimal Temperature */
   	  char pressure[64]; /* String Pressure Output */
@@ -128,11 +163,27 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
 	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_PRESS_MSB, I2C_MEMADD_SIZE_8BIT, &data, 6, 2000u); /* Reading pressure and temperature */
+
+	  /* Reading the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_T1, I2C_MEMADD_SIZE_8BIT, &dig_T1, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_T2, I2C_MEMADD_SIZE_8BIT, &dig_T2, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_T3, I2C_MEMADD_SIZE_8BIT, &dig_T3, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P1, I2C_MEMADD_SIZE_8BIT, &dig_P1, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P2, I2C_MEMADD_SIZE_8BIT, &dig_P2, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P3, I2C_MEMADD_SIZE_8BIT, &dig_P3, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P4, I2C_MEMADD_SIZE_8BIT, &dig_P4, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P5, I2C_MEMADD_SIZE_8BIT, &dig_P5, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P6, I2C_MEMADD_SIZE_8BIT, &dig_P6, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P7, I2C_MEMADD_SIZE_8BIT, &dig_P7, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P8, I2C_MEMADD_SIZE_8BIT, &dig_P8, 2, 2000u); /* Getting the Trimming Values */
+	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P9, I2C_MEMADD_SIZE_8BIT, &dig_P9, 2, 2000u); /* Getting the Trimming Values */
 
 	  HAL_Delay(2000); /* Delay for 2 seconds */
 
-    /* USER CODE BEGIN 3 */
+
   }
   /* USER CODE END 3 */
 }
@@ -200,7 +251,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x2000090E;
+  hi2c1.Init.Timing = 0x0010020A;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
