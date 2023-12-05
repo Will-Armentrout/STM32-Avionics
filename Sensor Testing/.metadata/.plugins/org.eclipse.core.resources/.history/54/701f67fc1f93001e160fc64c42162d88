@@ -191,8 +191,8 @@ int main(void)
 
 
 	  /* Compensation of Temperature */
-	  var1 = ((((temp >> 14) - ((int32_t)dig_T1 >> 10))) * ((int32_t)dig_T2));
-	  var2 = (((((temp >> 17) - ((int32_t)dig_T1 >> 13)) * ((temp >> 17) - ((int32_t)dig_T1))) >> 13) * ((int32_t)dig_T3));
+	  var1 = ((((temp >> 3) - ((int32_t)dig_T1 << 1))) * ((int32_t)dig_T2)) >> 11;
+	  var2 = (((((temp >> 4) - ((int32_t)dig_T1)) * ((temp >> 4) - ((int32_t)dig_T1))) >> 12) * ((int32_t)dig_T3)) >> 14;
 	  t_fine = var1 + var2;
 	  T = (t_fine * 5 + 128) >> 8;
 
