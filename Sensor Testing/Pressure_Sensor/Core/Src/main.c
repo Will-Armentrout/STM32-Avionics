@@ -145,6 +145,11 @@ int main(void)
   	  short dig_P8; /* Trimming Value P8 */
   	  short dig_P9; /* Trimming Value P9 */
 
+  	  /* Temperature Compensation Variables */
+	  int32_t var1;
+	  int32_t var2;
+	  int32_t T; /* Output Temperature */
+	  int32_t t_fine; /* Fine Output for Pressure Compensation */
 
   	  float pressVal; /* Decimal Pressure */
   	  float tempVal; /* Decimal Temperature */
@@ -167,6 +172,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_PRESS_MSB, I2C_MEMADD_SIZE_8BIT, &data, 6, 2000u); /* Reading pressure and temperature */
 
+	  temp = (((int32_t)data[0] << 8) | data[1]);
+	  press = (((int32_t)data[3] << 8) | data[4]);
+
 	  /* Reading the Trimming Values */
 	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_T1, I2C_MEMADD_SIZE_8BIT, &dig_T1, 2, 2000u); /* Getting the Trimming Values */
 	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_T2, I2C_MEMADD_SIZE_8BIT, &dig_T2, 2, 2000u); /* Getting the Trimming Values */
@@ -180,6 +188,13 @@ int main(void)
 	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P7, I2C_MEMADD_SIZE_8BIT, &dig_P7, 2, 2000u); /* Getting the Trimming Values */
 	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P8, I2C_MEMADD_SIZE_8BIT, &dig_P8, 2, 2000u); /* Getting the Trimming Values */
 	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_Dig_P9, I2C_MEMADD_SIZE_8BIT, &dig_P9, 2, 2000u); /* Getting the Trimming Values */
+
+
+	  /* Compensation of Temperature */
+	  var1 = ((((temp >> 3) - ((int32_t)dig_T1 << 1))) * ((int32_t)dig_T2)) >> 11;
+	  var2 = (((((temp >> 4) - ((int32_t)dig_T1)) * ((temp >> 4) - ((int32_t)dig_T1))) >> 12) * ((int32_t)dig_T3)) >> 14;
+	  t_fine = var1 + var2;
+	  T = (t_fine * 5 + 128) >> 8;
 
 	  HAL_Delay(2000); /* Delay for 2 seconds */
 

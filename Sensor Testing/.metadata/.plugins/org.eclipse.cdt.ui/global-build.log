@@ -1,7 +1,7 @@
-18:22:46 **** Incremental Build of configuration Debug for project Pressure_Sensor ****
+20:00:04 **** Incremental Build of configuration Debug for project Pressure_Sensor ****
 make -j16 all 
 arm-none-eabi-size   Pressure_Sensor.elf 
    text	   data	    bss	    dec	    hex	filename
-  15872	     20	   1788	  17680	   4510	Pressure_Sensor.elf
+  16008	     20	   1788	  17816	   4598	Pressure_Sensor.elf
 Finished building: default.size.stdout
  
