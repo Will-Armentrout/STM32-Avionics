@@ -198,8 +198,6 @@ int main(void)
 	  t_fine = temp_var1 + temp_var2;
 	  temperature = (t_fine * 5 + 128) >> 8;
 
-	  tempVal = ((float)temperature)/100;
-
 	  /* Compensation of Pressure */
 	  press_var1 = ((int64_t)t_fine) - 128000;
 	  press_var2 = press_var1 * press_var1 * (int64_t)dig_P6;
@@ -213,7 +211,6 @@ int main(void)
 	  press_var2 = (((int64_t)dig_P8) * pressure) >> 19;
 	  pressure = ((pressure + press_var1 + press_var2) >> 8) + (((int64_t)dig_P7)<<4);
 
-	  pressVal = ((float)pressure)/256;
 
 	  HAL_Delay(2000); /* Delay for 2 seconds */
   }

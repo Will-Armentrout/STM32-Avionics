@@ -146,18 +146,15 @@ int main(void)
   	  short dig_P9; /* Trimming Value P9 */
 
   	  /* Temperature Compensation Variables */
-	  int32_t temp_var1;
-	  int32_t temp_var2;
-	  int32_t temperature; /* Output Temperature */
+	  int32_t var1;
+	  int32_t var2;
+	  int32_t Temperature; /* Output Temperature */
 	  int32_t t_fine; /* Fine Output for Pressure Compensation */
-
-	  /* Pressure Compensation Variables */
-	  int64_t press_var1;
-	  int64_t press_var2;
-	  int64_t pressure;
 
   	  float pressVal; /* Decimal Pressure */
   	  float tempVal; /* Decimal Temperature */
+  	  char pressure[64]; /* String Pressure Output */
+  	  char temperature[64]; /* String Temperature Output */
 
   	  /* Configuration of the BMP280 */
   	  HAL_I2C_Mem_Write(&hi2c1, BMP_Address, regAddress_CTRL_MEAS, I2C_MEMADD_SIZE_8BIT, &regCTRL_MEAS, 1, 2000u); /* Writing to the ctrl measurement register */
@@ -188,34 +185,20 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  HAL_I2C_Mem_Read(&hi2c1, BMP_Address, regAddress_PRESS_MSB, I2C_MEMADD_SIZE_8BIT, &data, 6, 2000u); /* Reading pressure and temperature */
 
-	  press = (int32_t)((data[0] << 12) | data[1] << 4 | data[2]);
-	  temp = (int32_t)((data[3] << 12) | data[4] << 4 | data[5]);
+	  temp = (int32_t)((data[0] << 12) | data[1] << 4 | data[2]);
+	  press = (int32_t)((data[3] << 12) | data[4] << 4 | data[5]);
 
 	  /* Compensation of Temperature */
-	  temp_var1 = ((((temp>>3) - ((int32_t)dig_T1<<1))) * ((int32_t)dig_T2)) >> 11;
+	  //var1 = ((((temp >> 14) - ((int32_t)dig_T1 >> 10))) * ((int32_t)dig_T2));
+	  var1 = ((((temp>>3) - ((int32_t)dig_T1<<1))) * ((int32_t)dig_T2)) >> 11;
 	  //var2 = (((((temp >> 17) - ((int32_t)dig_T1 >> 13)) * ((temp >> 17) - ((int32_t)dig_T1))) >> 13) * ((int32_t)dig_T3));
-	  temp_var2 = (((((temp>>4) - ((int32_t)dig_T1)) * ((temp>>4) - ((int32_t)dig_T1))) >> 12) * ((int32_t)dig_T3)) >> 14;
-	  t_fine = temp_var1 + temp_var2;
-	  temperature = (t_fine * 5 + 128) >> 8;
-
-	  tempVal = ((float)temperature)/100;
-
-	  /* Compensation of Pressure */
-	  press_var1 = ((int64_t)t_fine) - 128000;
-	  press_var2 = press_var1 * press_var1 * (int64_t)dig_P6;
-	  press_var2 = press_var2 + ((press_var1*(int64_t)dig_P5)<<17);
-	  press_var2 = 	  press_var2 + (((int64_t)dig_P4)<<35);
-	  press_var1 = ((press_var1 * press_var1 * (int64_t)dig_P3)>>8) + ((press_var1 * (int64_t)dig_P2)<<12);
-	  press_var1 = (((((int64_t)1)<<47)+press_var1))*((int64_t)dig_P1)>>33;
-	  pressure = 1048576 - press;
-	  pressure = (((pressure<<31)-press_var2)*3125)/press_var1;
-	  press_var1 = (((int64_t)dig_P9) * (pressure>>13) * (pressure>>13)) >> 25;
-	  press_var2 = (((int64_t)dig_P8) * pressure) >> 19;
-	  pressure = ((pressure + press_var1 + press_var2) >> 8) + (((int64_t)dig_P7)<<4);
-
-	  pressVal = ((float)pressure)/256;
+	  var2 = (((((temp>>4) - ((int32_t)dig_T1)) * ((temp>>4) - ((int32_t)dig_T1))) >> 12) * ((int32_t)dig_T3)) >> 14;
+	  t_fine = var1 + var2;
+	  Temperature = (t_fine * 5 + 128) >> 8;
 
 	  HAL_Delay(2000); /* Delay for 2 seconds */
+
+
   }
   /* USER CODE END 3 */
 }
