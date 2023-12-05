@@ -212,7 +212,7 @@ int main(void)
 
 	  pressVal = ((float)pressure)/256;
 
-	  altitude = 44330 * (1 - pow((pressVal/seaLevel_Press),(1/5.255)));
+	  altitude = 44330 * (1 - (pressVal/seaLevel_Press)^(1/5.255));
 
 	  HAL_Delay(2000); /* Delay for 2 seconds */
   }
