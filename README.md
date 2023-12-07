@@ -1,5 +1,5 @@
 # STM32-Avionics
-# Author: Will Armentrout
+**Author: Will Armentrout**
 
 The goal of this Repo was to complete sensor, STM32 Hardware Integration, telemetry display testing in preparation for creating a Custom Avionics PCB using the STM32 framework.
 
