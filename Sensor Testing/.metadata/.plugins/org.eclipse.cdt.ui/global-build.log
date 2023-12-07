@@ -62,3 +62,17 @@ arm-none-eabi-size   GPS.elf
   14776	     20	   1844	  16640	   4100	GPS.elf
 Finished building: default.size.stdout
  
+17:10:56 **** Build of configuration Debug for project IMU_Gyro ****
+make -j16 all 
+arm-none-eabi-size   IMU_Gyro.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32504	    476	   2124	  35104	   8920	IMU_Gyro.elf
+Finished building: default.size.stdout
+ 
+17:11:31 **** Incremental Build of configuration Debug for project IMU_Gyro ****
+make -j16 all 
+arm-none-eabi-size   IMU_Gyro.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32504	    476	   2124	  35104	   8920	IMU_Gyro.elf
+Finished building: default.size.stdout
+ 
