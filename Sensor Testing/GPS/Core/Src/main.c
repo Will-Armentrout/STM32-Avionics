@@ -96,8 +96,8 @@ int main(void)
   /* GPS Loop Variables */
   char buffer[100]; /* Buffer to store the GPS Sentences */
   char lastChar; /* Variable for the last piece of data */
+  int i = 0; /* Buffer Index */
 
-  HAL_Delay(20000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -105,15 +105,26 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_UART_Receive(&huart4, &lastChar, 1, 2000u);
 
-	  strncat(buffer, lastChar, 1);
-	  if(lastChar == '\n'){
-		  HAL_UART_Transmit(&huart2, buffer, strlen(buffer), 1000u);
-
-		  memset(buffer, '\0', strlen(buffer));
-	  }
     /* USER CODE BEGIN 3 */
+	  HAL_UART_Receive(&huart4, &lastChar, 1, 2000u);
+	  buffer[i] = lastChar;
+
+	  if (lastChar == '\n') {
+		  HAL_UART_Transmit(&huart2, buffer, strlen(buffer), 1000u);
+		  int j = i;
+		  i = 0;
+
+		  while (j > 0) {
+			  buffer[j] = 0;
+			  j--;
+		  }
+
+	  } else {
+		  i++;
+	  }
+
+
   }
   /* USER CODE END 3 */
 }

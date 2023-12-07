@@ -1,10 +1,10 @@
-15:46:17 **** Incremental Build of configuration Debug for project GPS ****
+13:09:24 **** Incremental Build of configuration Debug for project GPS ****
 make -j16 all 
 arm-none-eabi-size   GPS.elf 
    text	   data	    bss	    dec	    hex	filename
-  14872	     20	   1844	  16736	   4160	GPS.elf
+  14776	     20	   1844	  16640	   4100	GPS.elf
 Finished building: default.size.stdout
  
 
-15:46:17 Build Finished. 0 errors, 0 warnings. (took 125ms)
+13:09:24 Build Finished. 0 errors, 0 warnings. (took 139ms)
 
