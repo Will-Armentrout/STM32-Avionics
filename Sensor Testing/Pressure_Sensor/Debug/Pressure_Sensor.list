@@ -1500,7 +1500,7 @@ int main(void)
   	  float pressVal; /* Decimal Pressure */
   	  float tempVal; /* Decimal Temperature */
   	  float altitude; /* Altitude */
-  	  float seaLevel_Press = 102300; /* Sea Level Pressure Equivalent (Update by day) */
+  	  float seaLevel_Press = 102090; /* Sea Level Pressure Equivalent (Update by day) */
  8001160:	4bd3      	ldr	r3, [pc, #844]	; (80014b0 <main+0x3d8>)
  8001162:	f8c7 3168 	str.w	r3, [r7, #360]	; 0x168
 
@@ -1827,7 +1827,7 @@ int main(void)
  80014aa:	667a      	str	r2, [r7, #100]	; 0x64
  80014ac:	460a      	mov	r2, r1
  80014ae:	e005      	b.n	80014bc <main+0x3e4>
- 80014b0:	47c7ce00 	.word	0x47c7ce00
+ 80014b0:	47c76500 	.word	0x47c76500
  80014b4:	2000008c 	.word	0x2000008c
  80014b8:	42c80000 	.word	0x42c80000
  80014bc:	663a      	str	r2, [r7, #96]	; 0x60

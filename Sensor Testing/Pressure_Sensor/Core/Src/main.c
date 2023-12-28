@@ -154,7 +154,7 @@ int main(void)
   	  float pressVal; /* Decimal Pressure */
   	  float tempVal; /* Decimal Temperature */
   	  float altitude; /* Altitude */
-  	  float seaLevel_Press = 102300; /* Sea Level Pressure Equivalent (Update by day) */
+  	  float seaLevel_Press = 102090; /* Sea Level Pressure Equivalent (Update by day) */
 
   	  /* Configuration of the BMP280 */
   	  HAL_I2C_Mem_Write(&hi2c1, BMP_Address, regAddress_CTRL_MEAS, I2C_MEMADD_SIZE_8BIT, &regCTRL_MEAS, 1, 2000u); /* Writing to the ctrl measurement register */
